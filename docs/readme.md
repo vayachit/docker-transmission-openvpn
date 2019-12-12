@@ -50,7 +50,7 @@ To run the container use this command:
 
 ```
 $ docker run --cap-add=NET_ADMIN -d \
-              -v /your/storage/path/:/data \
+              -v /your/storage/path/:/downloads \
               -v /etc/localtime:/etc/localtime:ro \
               -e CREATE_TUN_DEVICE=true \
               -e OPENVPN_PROVIDER=PIA \
@@ -291,7 +291,7 @@ See explanation of variables above.
 To use this env file, use the following to run the docker image:
 ```
 $ docker run --cap-add=NET_ADMIN --device=/dev/net/tun -d \
-              -v /your/storage/path/:/data \
+              -v /your/storage/path/:/downloads \
               -v /etc/localtime:/etc/localtime:ro \
               --env-file /your/docker/env/file \
               -p 9091:9091 \
@@ -433,7 +433,7 @@ nameserver 8.8.4.4
           --device=/dev/net/tun \
           -d \
           -v /volume1/foldername/resolv.conf:/etc/resolv.conf \
-          -v /volume1/yourpath/:/data \
+          -v /volume1/yourpath/:/downloads \
           -e "OPENVPN_PROVIDER=PIA" \
           -e "OPENVPN_CONFIG=CA\ Toronto" \
           -e "OPENVPN_USERNAME=XXXXX" \
@@ -476,7 +476,7 @@ ExecStart=/usr/bin/docker run \
         --name transmission-openvpn \
         --cap-add=NET_ADMIN \
         --device=/dev/net/tun \
-        -v /home/bittorrent/data/:/data \
+        -v /home/bittorrent/data/:/downloads \
         -e "OPENVPN_PROVIDER=TORGUARD" \
         -e "OPENVPN_USERNAME=bittorrent@example.com" \
         -e "OPENVPN_PASSWORD=hunter2" \

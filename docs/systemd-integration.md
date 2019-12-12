@@ -22,7 +22,7 @@ ExecStart=/usr/bin/docker run \
         --name transmission-openvpn \
         --cap-add=NET_ADMIN \
         --device=/dev/net/tun \
-        -v /home/bittorrent/data/:/data \
+        -v /home/bittorrent/data/:/downloads \
         -e "OPENVPN_PROVIDER=TORGUARD" \
         -e "OPENVPN_USERNAME=bittorrent@example.com" \
         -e "OPENVPN_PASSWORD=hunter2" \

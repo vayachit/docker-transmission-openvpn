@@ -27,7 +27,7 @@ It also bundles an installation of Tinyproxy to also be able to proxy web traffi
 
 ```
 $ docker run --cap-add=NET_ADMIN -d \
-              -v /your/storage/path/:/data \
+              -v /your/storage/path/:/downloads \
               -v /etc/localtime:/etc/localtime:ro \
               -e CREATE_TUN_DEVICE=true \
               -e OPENVPN_PROVIDER=PIA \

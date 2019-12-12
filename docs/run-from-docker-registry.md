@@ -3,7 +3,7 @@ To run the container use this command:
 
 ```
 $ docker run --cap-add=NET_ADMIN -d \
-              -v /your/storage/path/:/data \
+              -v /your/storage/path/:/downloads \
               -v /etc/localtime:/etc/localtime:ro \
               -e CREATE_TUN_DEVICE=true \
               -e OPENVPN_PROVIDER=PIA \

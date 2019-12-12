@@ -46,7 +46,7 @@ docker run \
     --device=/dev/net/tun \
     -d \
     -v /volume1/foldername/resolv.conf:/etc/resolv.conf \
-    -v /volume1/yourpath/:/data \
+    -v /volume1/yourpath/:/downloads \
     -e "OPENVPN_PROVIDER=PIA" \
     -e "OPENVPN_CONFIG=CA\ Toronto" \
     -e "OPENVPN_USERNAME=XXXXX" \

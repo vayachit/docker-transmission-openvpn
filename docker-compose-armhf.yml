@@ -2,7 +2,7 @@ version: '2'
 
 services:
  transmission:
-  image: haugene/transmission-openvpn:latest-armhf
+  image: doodlerx/transmission-openvpn:latest-armhf
   cap_add:
     - NET_ADMIN
   devices:
@@ -16,7 +16,7 @@ services:
     - 8.8.4.4
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /your/storage/path/:/data
+    - /your/storage/path/:/downloads
   environment:
     - OPENVPN_PROVIDER=PIA
     - OPENVPN_USERNAME=username
@@ -25,7 +25,7 @@ services:
     - LOCAL_NETWORK=192.168.0.0/24
 
  proxy:
-  image: haugene/transmission-openvpn-proxy:latest-armhf
+  image: doodlerx/transmission-openvpn-proxy:latest-armhf
   links:
     - transmission
   ports:
@@ -34,7 +34,7 @@ services:
     - /etc/localtime:/etc/localtime:ro
 
  rss:
-  image: haugene/transmission-rss:latest-armhf
+  image: doodlerx/transmission-rss:latest-armhf
   links:
     - transmission
   environment:

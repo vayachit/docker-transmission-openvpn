@@ -8,7 +8,7 @@ See explanation of variables above.
 To use this env file, use the following to run the docker image:
 ```
 $ docker run --cap-add=NET_ADMIN --device=/dev/net/tun -d \
-              -v /your/storage/path/:/data \
+              -v /your/storage/path/:/downloads \
               -v /etc/localtime:/etc/localtime:ro \
               --env-file /your/docker/env/file \
               -p 9091:9091 \

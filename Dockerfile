@@ -135,7 +135,7 @@ ENV OPENVPN_USERNAME=**None** \
     LOCAL_NETWORK= \
     CREATE_TUN_DEVICE=true \ 
     OPENVPN_CONFIG= \
-    OPENVPN_OPTS = \
+    OPENVPN_OPTS= \
     HEALTH_CHECK_HOST=google.com
 
 HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh

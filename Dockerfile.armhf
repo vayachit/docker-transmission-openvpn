@@ -120,13 +120,18 @@ ENV OPENVPN_USERNAME=**None** \
     UFW_ALLOW_GW_NET=false \
     UFW_EXTRA_PORTS= \
     UFW_DISABLE_IPTABLES_REJECT=false \
-    TRANSMISSION_WEB_UI=\
-    PUID=\
-    PGID=\
+    TRANSMISSION_WEB_UI=transmission-web-control \
+    PUID= \
+    PGID= \
     TRANSMISSION_WEB_HOME= \
     DROP_DEFAULT_ROUTE= \
     WEBPROXY_ENABLED=false \
-    WEBPROXY_PORT=8888
+    WEBPROXY_PORT=8888 \   
+    LOCAL_NETWORK= \
+    CREATE_TUN_DEVICE=true \ 
+    OPENVPN_CONFIG= \
+    OPENVPN_OPTS = --inactive 3600 --ping 10 --ping-exit 60\
+    HEALTH_CHECK_HOST=google.com
 
 # Expose port and run
 EXPOSE 9091

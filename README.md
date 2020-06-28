@@ -1,6 +1,6 @@
 # OpenVPN and Transmission with WebUI
 
-[![Docker Automated build](https://img.shields.io/docker/automated/haugene/transmission-openvpn.svg)](https://hub.docker.com/r/haugene/transmission-openvpn/)
+[![CircleCI builds](https://img.shields.io/circleci/build/github/haugene/docker-transmission-openvpn)](https://circleci.com/gh/haugene/docker-transmission-openvpn)
 [![Docker Pulls](https://img.shields.io/docker/pulls/haugene/transmission-openvpn.svg)](https://hub.docker.com/r/haugene/transmission-openvpn/)
 [![Join the chat at https://gitter.im/docker-transmission-openvpn/Lobby](https://badges.gitter.im/docker-transmission-openvpn/Lobby.svg)](https://gitter.im/docker-transmission-openvpn/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -25,6 +25,33 @@ $ docker run --cap-add=NET_ADMIN -d \
               --log-opt max-size=10m \
               -p 9091:9091 \
               haugene/transmission-openvpn
+```
+
+## Docker Compose
+```
+version: '3.3'
+services:
+    transmission-openvpn:
+        volumes:
+            - '/your/storage/path/:/data'
+            - '/etc/localtime:/etc/localtime:ro'
+        environment:
+            - CREATE_TUN_DEVICE=true
+            - OPENVPN_PROVIDER=PIA
+            - OPENVPN_CONFIG=CA Toronto
+            - OPENVPN_USERNAME=user
+            - OPENVPN_PASSWORD=pass
+            - WEBPROXY_ENABLED=false
+            - LOCAL_NETWORK=192.168.0.0/16
+        cap_add:
+            - NET_ADMIN
+        logging:
+            driver: json-file
+            options:
+                max-size: 10m
+        ports:
+            - '9091:9091'
+        image: haugene/transmission-openvpn
 ```
 
 ## Documentation

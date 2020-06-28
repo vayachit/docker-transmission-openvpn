@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11
 
 VOLUME /downloads
 VOLUME /config
@@ -6,7 +6,7 @@ VOLUME /config
 ARG DOCKERIZE_ARCH=amd64
 ENV DOCKERIZE_VERSION=v0.6.0
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli curl jq \
+    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli curl jq tzdata openrc tinyproxy tinyproxy-openrc\
     && echo "Install dockerize $DOCKERIZE_VERSION ($DOCKERIZE_ARCH)" \
     && wget -qO- https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-$DOCKERIZE_ARCH-$DOCKERIZE_VERSION.tar.gz | tar xz -C /usr/bin \
     && mkdir -p /opt/transmission-ui \
@@ -27,8 +27,11 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && useradd -u 911 -U -d /config -s /bin/false abc \
     && usermod -G users abc
 
+# Add configuration and scripts
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
+ADD tinyproxy /opt/tinyproxy/
+ADD scripts /etc/scripts/
 
 ENV OPENVPN_USERNAME=**None** \
     OPENVPN_PASSWORD=**None** \
@@ -125,6 +128,9 @@ ENV OPENVPN_USERNAME=**None** \
     OPENVPN_CONFIG= \
     OPENVPN_OPTS = \
     HEALTH_CHECK_HOST=google.com
+    
+HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
+
 
 # Expose port and run
 EXPOSE 9091

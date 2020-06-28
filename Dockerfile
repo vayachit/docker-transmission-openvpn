@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:19.10
 
 VOLUME /downloads
 VOLUME /config
@@ -7,16 +7,17 @@ ARG DOCKERIZE_ARCH=amd64
 ARG DOCKERIZE_VERSION=v0.6.1
 ARG DUMBINIT_VERSION=1.2.2
 
+# Required for omitting the tzdata configuration dialog
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Update, upgrade and install core software
 RUN apt update \
-    && apt -y upgrade \
-    && apt -y install software-properties-common wget git curl jq \
+    && apt -y install apt-utils software-properties-common wget git curl jq \
     && add-apt-repository ppa:transmissionbt/ppa \
-    && wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add - \
-    && echo "deb http://build.openvpn.net/debian/openvpn/stable xenial main" > /etc/apt/sources.list.d/openvpn-aptrepo.list \
     && apt update \
-    && apt install -y sudo transmission-cli transmission-common transmission-daemon curl rar unrar zip unzip ufw iputils-ping openvpn bc tzdata \
+    && apt install -y sudo transmission-cli transmission-common transmission-daemon curl rar unrar zip unzip ufw iputils-ping openvpn bc tzdata bash \
     python2.7 python2.7-pysqlite2 && ln -sf /usr/bin/python2.7 /usr/bin/python2 \
+    && apt -y upgrade \
     && wget https://github.com/Secretmapper/combustion/archive/release.zip \
     && unzip release.zip -d /opt/transmission-ui/ \
     && rm release.zip \
@@ -27,7 +28,7 @@ RUN apt update \
     && ln -s /usr/share/transmission/web/javascript /opt/transmission-ui/transmission-web-control \
     && ln -s /usr/share/transmission/web/index.html /opt/transmission-ui/transmission-web-control/index.original.html \
     && git clone git://github.com/endor/kettu.git /opt/transmission-ui/kettu \
-    && apt install -y tinyproxy telnet \
+    && apt install -y tinyproxy telnet vim \
     && wget https://github.com/Yelp/dumb-init/releases/download/v${DUMBINIT_VERSION}/dumb-init_${DUMBINIT_VERSION}_amd64.deb \
     && dpkg -i dumb-init_${DUMBINIT_VERSION}_amd64.deb \
     && rm -rf dumb-init_${DUMBINIT_VERSION}_amd64.deb \
@@ -136,7 +137,7 @@ ENV OPENVPN_USERNAME=**None** \
     CREATE_TUN_DEVICE=true \ 
     OPENVPN_CONFIG= \
     OPENVPN_OPTS= \
-    HEALTH_CHECK_HOST=google.com
+    HEALTH_CHECK_HOST=google.com \
 
 HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
 

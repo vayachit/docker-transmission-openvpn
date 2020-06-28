@@ -138,6 +138,7 @@ ENV OPENVPN_USERNAME=**None** \
     OPENVPN_CONFIG= \
     OPENVPN_OPTS= \
     HEALTH_CHECK_HOST=google.com \
+    DOCKER_LOG=false
 
 HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
 
